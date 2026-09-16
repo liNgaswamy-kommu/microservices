@@ -11,5 +11,4 @@ public class ProductServiceApplication {
 		SpringApplication.run(ProductServiceApplication.class, args);
 		System.err.println("*** Welcome to Product-Service ***");
 	}
-
 }

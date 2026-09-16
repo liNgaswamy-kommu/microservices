@@ -1,11 +1,11 @@
 package com.eidiko.order_service.service;
 
+import com.eidiko.order_service.client.ProductClient;
 import com.eidiko.order_service.dto.ProductResponse;
 import com.eidiko.order_service.entity.Order;
 import com.eidiko.order_service.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
 @Service
 public class OrderService {
@@ -14,13 +14,10 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private RestClient restClient;
+    private ProductClient productClient;
 
     public Order createOrder(Order order){
-        ProductResponse product = restClient.get()
-                .uri("http://localhost:9091/products/"+order.getProductId())
-                .retrieve()
-                .body(ProductResponse.class);
+        ProductResponse product = productClient.getProductById(order.getProductId());
 
         double totalPrice = product.getPrice() * order.getQuantity();
         order.setTotalPrice(totalPrice);

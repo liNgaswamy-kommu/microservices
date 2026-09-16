@@ -1,9 +1,7 @@
 package com.eidiko.order_service.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
 public class ProductResponse {
     private Long id;
