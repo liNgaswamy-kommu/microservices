@@ -1,6 +1,7 @@
 package com.eidiko.product_service.service;
 
 import com.eidiko.product_service.entity.Product;
+import com.eidiko.product_service.exception.ProductNotFoundException;
 import com.eidiko.product_service.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class ProductService {
 
     public Product getProductById(Long id){
         return productRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Product not found..."));
+                .orElseThrow(()-> new ProductNotFoundException("Product not found with ID "+id));
     }
 
     public void deleteProduct(Long id){

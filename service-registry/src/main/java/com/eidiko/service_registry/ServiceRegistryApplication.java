@@ -12,5 +12,4 @@ public class ServiceRegistryApplication {
 		SpringApplication.run(ServiceRegistryApplication.class, args);
 		System.err.println("*** Welcome to Service-Registry ***");
 	}
-
 }
