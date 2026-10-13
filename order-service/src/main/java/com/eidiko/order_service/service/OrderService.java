@@ -22,7 +22,9 @@ public class OrderService {
     private ProductClient productClient;
 
     @Retry(name = "productService")
-    @CircuitBreaker(name = "productService")
+    @CircuitBreaker(name = "productService",
+            fallbackMethod = "productServiceFallback"
+    )
     public Order createOrder(Order order){
         ProductResponse product;
         try{
@@ -39,4 +41,15 @@ public class OrderService {
 
         return orderRepository.save(order);
     }
+
+    private ProductResponse productServiceFallback(
+            Long productId,
+            Exception exception) {
+
+        System.out.println("Fallback executed for product ID: " + productId);
+        throw new ProductServiceUnavailableException(
+                "Product Service is unavailable. Please try again later."
+        );
+    }
+
 }
